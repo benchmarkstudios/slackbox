@@ -1,0 +1,16 @@
+{
+  "name": "benchmark-slackbox",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "benchmarkstudios/slackbox"
+  },
+  "author": "Mike Francis <mikeffrancis@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {}
+}
