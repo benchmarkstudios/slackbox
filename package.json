@@ -12,5 +12,9 @@
   },
   "author": "Mike Francis <mikeffrancis@gmail.com>",
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "spotify-web-api-node": "~2.0.1",
+    "dotenv": "~1.0.0"
+  }
 }
