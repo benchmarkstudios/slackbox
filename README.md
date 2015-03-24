@@ -13,6 +13,8 @@ Make a note of the `token`, as you'll need it later.
 
 Head over to [Spotify's Developer Site](http://developer.spotify.com) and create a new Application. Make sure you add whatever slackbox's callback URI as a valid callback URI. If you're running locally, this will be `http://localhost:5000/callback` or on Heroku `http://app-name.herokuapp.com/callback`
 
+Make a note of the callback URI too, as you'll need this later as well.
+
 ###Environment variables
 
 Once you've cloned slackbox or hit the "Deploy with Heroku" button you'll need to setup the following environment variables. These can either be stored in a `.env` or set up as config variables in Heroku.
@@ -22,7 +24,7 @@ Once you've cloned slackbox or hit the "Deploy with Heroku" button you'll need t
 * `SPOTIFY_SECRET` - Your Spotify application secret (a.k.a Client Secret).
 * `SPOTIFY_USERNAME` - Your Spotify username.
 * `SPOTIFY_PLAYLIST_ID` - Your playlist identifier. Found by locating your playlist on [play.spotify.com](https://play.spotify.com) then note the hash in the URL.
-* `SPOTIFY_REDIRECT_URI` - URL to redirect to once your user has allowed the application's permissions. It is recommended you set this to whatever the URL of your app is and append `/callback` to the end.
+* `SPOTIFY_REDIRECT_URI` - URL to redirect to once your user has allowed the application's permissions.
 
 ###Authentication
 
