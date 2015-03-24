@@ -3,6 +3,10 @@ Spotify playlist collaboration through Slack. Brought to you by the lovely peopl
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+Simply create a Slash Command, such as `/jukebox`, which accepts a track name (also the artist too for a less fuzzy search) to add to a pre-defined Spotify playlist:
+
+    /jukebox Bell Biv DeVoe – Poison
+
 ##Installation
 
 First you'll want to create your Slack Slash Command, which you can do by going to your [Slash Commands page](https://my.slack.com/services/new/slash-commands).
