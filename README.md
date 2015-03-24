@@ -5,13 +5,13 @@ Group playlist collaboration through Slack. Brought to you by the lovely people 
 
 ##Installation
 
-First you'll want to create your Slack Slash Command, which you can do by going to `https://replace-with-your-group.slack.com` and adding a Slash Command Integration.
+First you'll want to create your Slack Slash Command, which you can do by going to `https://replace-with-your-group.slack.com/home` and adding a Slash Command Integration.
 
-Make a note of the `token`, as you'll need it later.
+Make a note of the `token`, as you'll need it later to help guard against cross-site request forgery.
 
 ###Spotify
 
-Head over to [Spotify's Developer Site](http://developer.spotify.com) and create a new Application. Make sure you add whatever slackbox's callback URI as a valid callback URI. If you're running locally, this will be `http://localhost:5000/callback` or on Heroku `http://app-name.herokuapp.com/callback`
+Head over to [Spotify's Developer Site](http://developer.spotify.com) and create a new Application. Make sure you add whatever slackbox's callback URI as a valid callback URI. If you're running locally, this will be `http://localhost:5000/callback` or on Heroku `https://app-name.herokuapp.com/callback`
 
 Make a note of the `key`, `secret` and `callback URI` too, as you'll need these later as well.
 
