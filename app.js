@@ -44,7 +44,6 @@ app.get('/callback', function(req, res) {
 });
 
 app.use('/store', function(req, res, next) {
-  console.log(req.body.token);
   if (req.body.token !== process.env.SLACK_TOKEN) {
     return res.status(500).send('Cross site request forgerizzle!');
   }
