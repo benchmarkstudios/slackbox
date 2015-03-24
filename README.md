@@ -1,5 +1,5 @@
 # slackbox
-Group playlist collaboration through Slack. Brought to you by the lovely people at [Benchmark](http://benchmark.co.uk).
+Spotify playlist collaboration through Slack. Brought to you by the lovely people at [Benchmark](http://benchmark.co.uk).
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
