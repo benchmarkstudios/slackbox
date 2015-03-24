@@ -15,6 +15,9 @@
   "devDependencies": {},
   "dependencies": {
     "spotify-web-api-node": "~2.0.1",
-    "dotenv": "~1.0.0"
+    "dotenv": "~1.0.0",
+    "express": "~4.12.3",
+    "request": "~2.53.0",
+    "body-parser": "~1.12.2"
   }
 }
