@@ -62,7 +62,7 @@ app.post('/store', function(req, res) {
           var trackId = results[0].id;
           spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + trackId])
             .then(function(data) {
-              return res.send('Track added.');
+              return res.send('Track added!');
             }, function(err) {
               return res.send(err.message);
             });
@@ -74,5 +74,5 @@ app.post('/store', function(req, res) {
     });
 });
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'));
