@@ -13,7 +13,7 @@ Make a note of the `token`, as you'll need it later.
 
 Head over to [Spotify's Developer Site](http://developer.spotify.com) and create a new Application. Make sure you add whatever slackbox's callback URI as a valid callback URI. If you're running locally, this will be `http://localhost:5000/callback` or on Heroku `http://app-name.herokuapp.com/callback`
 
-Make a note of the `callback URI` too, as you'll need this later as well.
+Make a note of the `key`, `secret` and `callback URI` too, as you'll need these later as well.
 
 ###Environment variables
 
