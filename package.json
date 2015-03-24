@@ -19,5 +19,8 @@
     "express": "~4.12.3",
     "request": "~2.53.0",
     "body-parser": "~1.12.2"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
