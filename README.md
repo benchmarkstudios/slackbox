@@ -5,7 +5,7 @@ Spotify playlist collaboration through Slack. Brought to you by the lovely peopl
 
 ##Installation
 
-First you'll want to create your Slack Slash Command, which you can do by going to `https://replace-with-your-group.slack.com/home` and adding a Slash Command Integration.
+First you'll want to create your Slack Slash Command, which you can do by going to `https://my.slack.com/services/new/slash-commands` and adding a Slash Command Integration.
 
 Make a note of the `token`, as you'll need it later to help guard against cross-site request forgery.
 
