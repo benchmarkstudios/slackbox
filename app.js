@@ -56,6 +56,9 @@ app.post('/store', function(req, res) {
       spotifyApi.searchTracks(req.body.text)
         .then(function(data) {
           var results = data.body.tracks.items;
+          if (results.length === 0) {
+            return res.send('Could not find that track.');
+          }
           var trackId = results[0].id;
           spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + trackId])
             .then(function(data) {
