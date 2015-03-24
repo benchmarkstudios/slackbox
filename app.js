@@ -16,7 +16,11 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
-})); 
+}));
+
+app.get('/', function(req, res) {
+  res.send('<a href="/authorise">Authorise</a>');
+});
 
 app.get('/authorise', function(req, res) {
   var scopes = ['playlist-modify-public', 'playlist-modify-private'];
