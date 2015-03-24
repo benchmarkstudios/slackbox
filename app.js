@@ -19,7 +19,10 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-  res.send('<a href="/authorise">Authorise</a>');
+  if (spotifyApi.getAccessToken()) {
+    return res.send('You are logged in.');
+  }
+  return res.send('<a href="/authorise">Authorise</a>');
 });
 
 app.get('/authorise', function(req, res) {
@@ -34,7 +37,7 @@ app.get('/callback', function(req, res) {
     .then(function(data) {
       spotifyApi.setAccessToken(data.body['access_token']);
       spotifyApi.setRefreshToken(data.body['refresh_token']);
-      res.send('You are now authed!');
+      res.redirect('/');
     }, function(err) {
       res.send(err);
     });
