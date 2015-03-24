@@ -7,6 +7,8 @@ You'll either get a `Track added.` message on success, or a fail and the respons
 
 Brought to you by the lovely people at [Benchmark](http://benchmark.co.uk).
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ##Environment variables
 
 These can either be stored in a `.env` or set up as config variables in Heroku.
