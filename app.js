@@ -37,10 +37,18 @@ app.get('/callback', function(req, res) {
     .then(function(data) {
       spotifyApi.setAccessToken(data.body['access_token']);
       spotifyApi.setRefreshToken(data.body['refresh_token']);
-      res.redirect('/');
+      return res.redirect('/');
     }, function(err) {
-      res.send(err);
+      return res.send(err);
     });
+});
+
+app.use('/store', function(req, res, next) {
+  console.log(req.body.token);
+  if (req.body.token !== process.env.SLACK_TOKEN) {
+    return res.status(500).send('Cross site request forgerizzle!');
+  }
+  next();
 });
 
 app.post('/store', function(req, res) {
@@ -52,15 +60,15 @@ app.post('/store', function(req, res) {
           var trackId = results[0].id;
           spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + trackId])
             .then(function(data) {
-              res.send('Track added.');
+              return res.send('Track added.');
             }, function(err) {
-              res.send(err.message);
+              return res.send(err.message);
             });
         }, function(err) {
-          res.send(err.message);
+          return res.send(err.message);
         });
     }, function(err) {
-      res.send('Could not referesh access token');
+      return res.send('Could not referesh access token');
     });
 });
 
