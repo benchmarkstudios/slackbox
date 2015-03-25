@@ -19,7 +19,7 @@ Head over to [Spotify's Developer Site](http://developer.spotify.com) and create
 
 Make a note of the `key`, `secret` and `callback URI` too, as you'll need these later as well.
 
-Also, don't forget to make a playlist. If you do this through [Spotify's web interface](http://play.spotify.com) then the `playlist identifier` will be the last segment of the URI - make a note of this too! If there's a better way of finding this out, we're all ears.
+Also, don't forget to make a playlist. If you do this through [Spotify's web interface](http://play.spotify.com) then the `playlist identifier` will be the last segment of the URI - make a note of this too! If there's a better way of finding this out, we're all ears. If you do this through the app, right-click the playlist to get it's web URL and again, you need the last segment of the URI.
 
 ###Environment variables
 
