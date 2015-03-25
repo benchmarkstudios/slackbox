@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,6 @@
     "express": "~4.12.3",
     "request": "~2.53.0",
     "body-parser": "~1.12.2"
-  },
-  "scripts": {
-    "start": "node app.js"
   },
   "engines": {
     "node": "0.10.x"
