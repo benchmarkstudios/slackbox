@@ -70,7 +70,7 @@ app.post('/store', function(req, res) {
           return res.send(err.message);
         });
     }, function(err) {
-      return res.send('Could not referesh access token');
+      return res.send('Could not referesh access token, you probably need to auth yourself again.');
     });
 });
 
