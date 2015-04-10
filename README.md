@@ -11,6 +11,8 @@ Simply create a Slash Command, such as `/jukebox`, which accepts a track name (a
 
 First you'll want to create your Slack Slash Command, which you can do by going to your [Slash Commands page](https://my.slack.com/services/new/slash-commands).
 
+During setup, have your slash command submit a POST to your app's `/store` endpoint, e.g. `https://app-name.herokuapp.com/store`.
+
 Make a note of the `token`, as you'll need it later to help guard against cross-site request forgery.
 
 ###Spotify
