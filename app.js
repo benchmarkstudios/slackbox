@@ -59,10 +59,10 @@ app.post('/store', function(req, res) {
           if (results.length === 0) {
             return res.send('Could not find that track.');
           }
-          var trackId = results[0].id;
-          spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + trackId])
+          var track = results[0];
+          spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + track.id])
             .then(function(data) {
-              return res.send('Track added!');
+              return res.send('Track added: *' + track.name + '* by *' + track.artists[0].name + '*');
             }, function(err) {
               return res.send(err.message);
             });
@@ -70,7 +70,7 @@ app.post('/store', function(req, res) {
           return res.send(err.message);
         });
     }, function(err) {
-      return res.send('Could not referesh access token, you probably need to auth yourself again.');
+      return res.send('Could not refresh access token. You probably need to re-authorise yourself from your app\'s homepage.');
     });
 });
 
