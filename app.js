@@ -53,13 +53,15 @@ app.use('/store', function(req, res, next) {
 app.post('/store', function(req, res) {
   spotifyApi.refreshAccessToken()
     .then(function(data) {
-      spotifyApi.searchTracks(req.body.text)
+      var searchTerm = req.body.text;
+      spotifyApi.searchTracks(searchTerm)
         .then(function(data) {
           var results = data.body.tracks.items;
-          if (results.length === 0) {
+          var trackIdRegex = /spotify.+track:?\/?(.+)/;
+          if (results.length === 0 && trackIdRegex.exec(searchTerm) === null) {
             return res.send('Could not find that track.');
           }
-          var trackId = results[0].id;
+          var trackId = (results.length) ? results[0].id : trackIdRegex.exec(searchTerm)[1];
           spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + trackId])
             .then(function(data) {
               return res.send('Track added!');
