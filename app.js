@@ -53,6 +53,7 @@ app.use('/store', function(req, res, next) {
 app.post('/store', function(req, res) {
   spotifyApi.refreshAccessToken()
     .then(function(data) {
+      spotifyApi.setAccessToken(data.body['access_token']);
       spotifyApi.searchTracks(req.body.text)
         .then(function(data) {
           var results = data.body.tracks.items;
