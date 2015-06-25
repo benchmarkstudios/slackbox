@@ -54,17 +54,12 @@ app.post('/store', function(req, res) {
   spotifyApi.refreshAccessToken()
     .then(function(data) {
       spotifyApi.setAccessToken(data.body['access_token']);
-
       if(req.body.text.indexOf('-') === -1) {
-
         var query = 'track:' + req.body.text;
-
       } else { 
-
         var pieces = req.body.text.split('-');
         var query = 'artist:' + pieces[0].trim() + ' track:' + pieces[1].trim();
       }
-
       spotifyApi.searchTracks(query)
         .then(function(data) {
           var results = data.body.tracks.items;
