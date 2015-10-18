@@ -84,7 +84,8 @@ app.post('/store', function(req, res) {
           var track = results[0];
           spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + track.id])
             .then(function(data) {
-              return slack(res, 'Track added: *' + track.name + '* by *' + track.artists[0].name + '*');
+              var message = 'Track added' + (process.env.SLACK_OUTGOING ? ' by *' + req.body.user_name + '*' : '') + ': *' + track.name + '* by *' + track.artists[0].name + '*'
+              return slack(res, message);
             }, function(err) {
               return slack(res, err.message);
             });
