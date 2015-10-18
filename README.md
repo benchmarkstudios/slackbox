@@ -9,9 +9,25 @@ Simply create a Slash Command, such as `/jukebox`, which accepts a track name (a
 
 ##Installation
 
+###Slack
+
+####Slash Command
+
+Slash commands allow for private functions within Slack which will **not** show up in chat history.
+
 First you'll want to create your Slack Slash Command, which you can do by going to your [Slash Commands page](https://my.slack.com/services/new/slash-commands).
 
-During setup, have your slash command submit a POST to your app's `/store` endpoint, e.g. `https://app-name.herokuapp.com/store`.
+####Outgoing WebHook
+
+Outgoing webhooks allow data to be exported from Slack channels. Using an outgoing webhook means song additions will be public so users will know when songs are requested and who requested them.
+
+First you'll want to create your Slack Slash Command, which you can do by going to your [Outgoing WebHooks page](https://my.slack.com/services/new/outgoing-webhook).
+
+Outgoing WebHooks work best with a trigger word. This way only messages with the trigger word (or words) will be parsed and added.
+
+####Common
+
+During setup, have your slash command or outgoing webhook submit a POST to your app's `/store` endpoint, e.g. `https://app-name.herokuapp.com/store`.
 
 Make a note of the `token`, as you'll need it later to help guard against cross-site request forgery.
 
