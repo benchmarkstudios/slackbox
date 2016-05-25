@@ -54,12 +54,12 @@ app.post('/store', function(req, res) {
   spotifyApi.refreshAccessToken()
     .then(function(data) {
       spotifyApi.setAccessToken(data.body['access_token']);
-      if (data.body['refresh_token']) { 
+      if (data.body['refresh_token']) {
         spotifyApi.setRefreshToken(data.body['refresh_token']);
       }
       if(req.body.text.indexOf(' - ') === -1) {
         var query = 'track:' + req.body.text;
-      } else { 
+      } else {
         var pieces = req.body.text.split(' - ');
         var query = 'artist:' + pieces[0].trim() + ' track:' + pieces[1].trim();
       }
@@ -72,7 +72,12 @@ app.post('/store', function(req, res) {
           var track = results[0];
           spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + track.id])
             .then(function(data) {
-              return res.send('Track added: *' + track.name + '* by *' + track.artists[0].name + '*');
+              text = 'Track added: *' + track.name + '* by *' + track.artists[0].name + '*';
+              response_type = process.env.SLACK_RESPONSE_TYPE || "ephemeral"
+              res.send({
+                "response_type": response_type,
+                "text": text
+              });
             }, function(err) {
               return res.send(err.message);
             });
