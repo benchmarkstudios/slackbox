@@ -28,6 +28,7 @@ Also, don't forget to make a playlist. If you do this through [Spotify's web int
 Once you've cloned slackbox or hit the "Deploy with Heroku" button you'll need to setup the following environment variables. These can either be stored in a `.env` or set up as config variables in Heroku.
 
 * `SLACK_TOKEN` - The token from Slack's Slash Command.
+* `SLACK_RESPONSE_TYPE` - `in_channel` or `ephemeral`, [Slack documentation](https://api.slack.com/slash-commands#responding_to_a_command)
 * `SPOTIFY_KEY` - Your Spotify application key (a.k.a Client ID).
 * `SPOTIFY_SECRET` - Your Spotify application secret (a.k.a Client Secret).
 * `SPOTIFY_USERNAME` - Your Spotify username.
