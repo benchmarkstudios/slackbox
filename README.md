@@ -29,13 +29,13 @@ Outgoing WebHooks work best with a trigger word. This way only messages with the
 
 **NOTE:** You may only use slash commands _or_ outgoing webhooks. The Slack Token environment variable can only be set once so it needs to be the token from this or the slash command.
 
-####Common
+#### Common
 
 During setup, have your slash command or outgoing webhook submit a POST to your app's `/store` endpoint, e.g. `https://app-name.herokuapp.com/store`.
 
 Make a note of the `token` (either from the slash command or outgoing webhook), as you'll need it later to help guard against cross-site request forgery.
 
-###Spotify
+### Spotify
 
 Head over to [Spotify's Developer Site](http://developer.spotify.com) and create a new Application. Make sure you add whatever slackbox's callback URI as a valid callback URI. If you're running locally, this will be `http://localhost:5000/callback` or on Heroku `https://app-name.herokuapp.com/callback`
 
@@ -43,7 +43,7 @@ Make a note of the `key`, `secret` and `callback URI` too, as you'll need these 
 
 Also, don't forget to make a playlist. If you do this through [Spotify's web interface](http://play.spotify.com) then the `playlist identifier` will be the last segment of the URI - make a note of this too! If there's a better way of finding this out, we're all ears. If you do this through the app, right-click the playlist to get it's web URL and again, you need the last segment of the URI.
 
-###Environment variables
+### Environment variables
 
 Once you've cloned slackbox or hit the "Deploy with Heroku" button you'll need to setup the following environment variables. These can either be stored in a `.env` or set up as config variables in Heroku.
 
@@ -55,6 +55,6 @@ Once you've cloned slackbox or hit the "Deploy with Heroku" button you'll need t
 * `SPOTIFY_PLAYLIST_ID` - Your playlist identifier.
 * `SPOTIFY_REDIRECT_URI` - URI to redirect to once your user has allowed the application's permissions.
 
-###Authentication
+### Authentication
 
 Visit your slackbox's home page to authenticate yourself with Spotify and you should be all set!
