@@ -9,11 +9,29 @@ Simply create a Slash Command, such as `/jukebox`, which accepts a track name (a
 
 ##Installation
 
+###Slack
+
+####Slash Command
+
+Slash commands allow for private functions within Slack which will **not** show up in chat history.
+
 First you'll want to create your Slack Slash Command, which you can do by going to your [Slash Commands page](https://my.slack.com/services/new/slash-commands).
 
-During setup, have your slash command submit a POST to your app's `/store` endpoint, e.g. `https://app-name.herokuapp.com/store`.
+####Outgoing WebHook
 
-Make a note of the `token`, as you'll need it later to help guard against cross-site request forgery.
+Outgoing webhooks allow data to be exported from Slack channels. Using an outgoing webhook means song additions will be public so users will know when songs are requested and who requested them.
+
+First you'll want to create your Outgoing Webhook, which you can do by going to your [Outgoing WebHooks page](https://my.slack.com/services/new/outgoing-webhook).
+
+Outgoing WebHooks work best with a trigger word. This way only messages with the trigger word (or words) will be parsed and added.
+
+**NOTE:** You may only use slash commands _or_ outgoing webhooks. The Slack Token environment variable can only be set once so it needs to be the token from this or the slash command.
+
+####Common
+
+During setup, have your slash command or outgoing webhook submit a POST to your app's `/store` endpoint, e.g. `https://app-name.herokuapp.com/store`.
+
+Make a note of the `token` (either from the slash command or outgoing webhook), as you'll need it later to help guard against cross-site request forgery.
 
 ###Spotify
 
@@ -28,6 +46,7 @@ Also, don't forget to make a playlist. If you do this through [Spotify's web int
 Once you've cloned slackbox or hit the "Deploy with Heroku" button you'll need to setup the following environment variables. These can either be stored in a `.env` or set up as config variables in Heroku.
 
 * `SLACK_TOKEN` - The token from Slack's Slash Command.
+* `SLACK_OUTGOING` - True if using [Slack Outgoing WebHooks](https://my.slack.com/services/new/outgoing-webhook), false if using [Slack Slash Commands](https://my.slack.com/services/new/slash-commands)
 * `SPOTIFY_KEY` - Your Spotify application key (a.k.a Client ID).
 * `SPOTIFY_SECRET` - Your Spotify application secret (a.k.a Client Secret).
 * `SPOTIFY_USERNAME` - Your Spotify username.
