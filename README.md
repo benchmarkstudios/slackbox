@@ -7,17 +7,19 @@ Simply create a Slash Command, such as `/jukebox`, which accepts a track name (a
 
     /jukebox Bell Biv DeVoe – Poison
 
-##Installation
+## Installation
 
-###Slack
+### Slack
 
-####Slash Command
+There are two ways to use slackbox - via a Slash Commands or an Outgoing Webhook:
+
+#### Slash Command
 
 Slash commands allow for private functions within Slack which will **not** show up in chat history.
 
 First you'll want to create your Slack Slash Command, which you can do by going to your [Slash Commands page](https://my.slack.com/services/new/slash-commands).
 
-####Outgoing WebHook
+#### Outgoing WebHook
 
 Outgoing webhooks allow data to be exported from Slack channels. Using an outgoing webhook means song additions will be public so users will know when songs are requested and who requested them.
 
