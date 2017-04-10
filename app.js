@@ -72,6 +72,7 @@ app.post('/store', function(req, res) {
       var trimmed = text.replace("https://open.spotify.com/track/", "");
       var trimmed2 = trimmed.replace("<", "");
       var trimmed3 = trimmed2.replace(">", "");
+      var trimmed4 = trimmed3.replace(" ", "");
 //      if(text.indexOf(' - ') === -1) {
 //        var query = 'track:' + text;
 //      } else {
@@ -86,7 +87,7 @@ app.post('/store', function(req, res) {
 //          }
 //          var track = results[0];
          var passuri = "spotify:track:";
-         passuri += trimmed3; 
+         passuri += trimmed4; 
          spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, passuri);
 //            .then(function(data) {
 //              var message = 'Dope Track added' + (process.env.SLACK_OUTGOING === 'true' ? ' by *' + req.body.user_name + '*' : '') + ': *' + track.name + '* by *' + track.artists[0].name + '*'
