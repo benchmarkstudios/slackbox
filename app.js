@@ -85,10 +85,12 @@ app.post('/store', function(req, res) {
 //            return slack(res, 'Could not find that track.');
 //          }
 //          var track = results[0];
-         spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + trimmed3]);
+         var passuri = "spotify:track:";
+         passuri += trimmed3; 
+         spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, passuri);
 //            .then(function(data) {
 //              var message = 'Dope Track added' + (process.env.SLACK_OUTGOING === 'true' ? ' by *' + req.body.user_name + '*' : '') + ': *' + track.name + '* by *' + track.artists[0].name + '*'
-              var message = trimmed3;
+              var message = passuri;
               return slack(res, message);
 //            }, function(err) {
 //              return slack(res, err.message);
