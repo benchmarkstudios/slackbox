@@ -69,6 +69,7 @@ app.post('/store', function(req, res) {
           return res.send('Enter the name of a song and the name of the artist, separated by a "-"\nExample: Blue (Da Ba Dee) - Eiffel 65');
       }
       var text = process.env.SLACK_OUTGOING === 'true' ? req.body.text.replace(req.body.trigger_word, '') : req.body.text;
+      var trimmed = text.replace("https://open.spotify.com/track/", "");
 //      if(text.indexOf(' - ') === -1) {
 //        var query = 'track:' + text;
 //      } else {
@@ -85,7 +86,7 @@ app.post('/store', function(req, res) {
 //          spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + track.id])
 //            .then(function(data) {
 //              var message = 'Dope Track added' + (process.env.SLACK_OUTGOING === 'true' ? ' by *' + req.body.user_name + '*' : '') + ': *' + track.name + '* by *' + track.artists[0].name + '*'
-              var message = text;
+              var message = trimmed;
               return slack(res, message);
 //            }, function(err) {
 //              return slack(res, err.message);
