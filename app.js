@@ -69,30 +69,30 @@ app.post('/store', function(req, res) {
           return res.send('Enter the name of a song and the name of the artist, separated by a "-"\nExample: Blue (Da Ba Dee) - Eiffel 65');
       }
       var text = process.env.SLACK_OUTGOING === 'true' ? req.body.text.replace(req.body.trigger_word, '') : req.body.text;
-      if(text.indexOf(' - ') === -1) {
-        var query = 'track:' + text;
-      } else {
-        var pieces = text.split(' - ');
-        var query = 'artist:' + pieces[0].trim() + ' track:' + pieces[1].trim();
-      }
-      spotifyApi.searchTracks(query)
-        .then(function(data) {
-          var results = data.body.tracks.items;
-          if (results.length === 0) {
-            return slack(res, 'Could not find that track.');
-          }
-          var track = results[0];
-          spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + track.id])
-            .then(function(data) {
+//      if(text.indexOf(' - ') === -1) {
+//        var query = 'track:' + text;
+//      } else {
+//        var pieces = text.split(' - ');
+//        var query = 'artist:' + pieces[0].trim() + ' track:' + pieces[1].trim();
+//      }
+//      spotifyApi.searchTracks(query)
+//        .then(function(data) {
+//          var results = data.body.tracks.items;
+//          if (results.length === 0) {
+//            return slack(res, 'Could not find that track.');
+//          }
+//          var track = results[0];
+//          spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, ['spotify:track:' + track.id])
+//            .then(function(data) {
 //              var message = 'Dope Track added' + (process.env.SLACK_OUTGOING === 'true' ? ' by *' + req.body.user_name + '*' : '') + ': *' + track.name + '* by *' + track.artists[0].name + '*'
               var message = text;
-              return slack(res, message);
-            }, function(err) {
-              return slack(res, err.message);
-            });
-        }, function(err) {
-          return slack(res, err.message);
-        });
+//              return slack(res, message);
+//            }, function(err) {
+//              return slack(res, err.message);
+//            });
+//        }, function(err) {
+//          return slack(res, err.message);
+//        });
     }, function(err) {
       return slack(res, 'Could not refresh access token. You probably need to re-authorise yourself from your app\'s homepage.');
     });
