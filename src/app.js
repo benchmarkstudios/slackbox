@@ -50,7 +50,6 @@ app.get('/callback', async (req, res) => {
     const data = await spotifyApi.authorizationCodeGrant(req.query.code);
     spotifyApi.setAccessToken(data.body['access_token']);
     spotifyApi.setRefreshToken(data.body['refresh_token']);
-    refresh((data.body.expires_in - 60) * 1);
     return res.redirect('/');
   } catch (err) {
     return res.send(err);
@@ -65,6 +64,7 @@ app.use('/store', (req, res, next) => {
 });
 
 app.post('/store', (req, res) => {
+  await spotifyApi.refreshAccessToken()
   try {
     const accessToken = spotifyApi.getAccessToken();
     const { text } = req.body;
