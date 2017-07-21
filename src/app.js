@@ -23,7 +23,7 @@ const refresh = t => {
       if (token.body['refresh_token']) {
         spotifyApi.setRefreshToken(token.body['refresh_token']);
       }
-      refresh((token.body.expires_in - 60)*1000)
+      refresh((token.body.expires_in - 60) * 1000)
     } catch (e) {
       console.log(e.message)
       console.log('Could not refresh access token. You probably need to re-authorise yourself from your app\'s homepage.')
@@ -50,7 +50,7 @@ app.get('/callback', async (req, res) => {
     const data = await spotifyApi.authorizationCodeGrant(req.query.code);
     spotifyApi.setAccessToken(data.body['access_token']);
     spotifyApi.setRefreshToken(data.body['refresh_token']);
-    refresh((data.body.expires_in - 60) * 5000);
+    refresh((data.body.expires_in - 60) * 1);
     return res.redirect('/');
   } catch (err) {
     return res.send(err);
