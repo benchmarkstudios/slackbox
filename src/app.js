@@ -64,7 +64,7 @@ app.use('/store', (req, res, next) => {
 });
 
 app.post('/store', (req, res) => {
-  await spotifyApi.refreshAccessToken()
+  spotifyApi.refreshAccessToken()
   try {
     const accessToken = spotifyApi.getAccessToken();
     const { text } = req.body;
