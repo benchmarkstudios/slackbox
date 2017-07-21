@@ -10,7 +10,7 @@ const hackathon = res => async query => {
   console.log(tracks)
   const [ track ] = tracks;
   console.log(track)
-  await spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, '1kdf8FDIidEB6NpHTd5Yil', [`spotify:track:${track.id}`]);
+  await spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, '1YA1RrRjqvxWVrw7WzoCqW', [`spotify:track:${track.id}`]);
   console.log('added')
   const message = `Track added: *${track.name}* by *${track.artists[0].name}*`;
   return res.send(message)
