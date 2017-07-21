@@ -7,6 +7,7 @@ const hackathon = res => async query => {
   if (tracks.length === 0) {
     throw 'Could not find that track.'
   }
+  console.log(tracks)
   const [ track ] = tracks;
   await spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, '1kdf8FDIidEB6NpHTd5Yil', [`spotify:track:${track.id}`]);
   const message = `Track added: *${track.name}* by *${track.artists[0].name}*`;
