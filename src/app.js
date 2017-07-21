@@ -75,7 +75,7 @@ app.post('/store', (req, res) => {
       const t = text.split('hackathon ')[1];
       const pieces = t.split(' - ');
       const query = `artist:${pieces[0].trim()} track:${pieces[1].trim()}`;
-      hackathon(res)(query);
+      return hackathon(res)(query);
     }
     if (text.indexOf('now playing') === 0) {
       return nowPlaying(res)(accessToken);
