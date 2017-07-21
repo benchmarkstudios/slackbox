@@ -1,6 +1,7 @@
 import spotifyApi from '../api/spotify';
 
 const hackathon = res => async query => {
+  console.log(query)
 
   const { body: { tracks: { items: tracks } } } = await spotifyApi.searchTracks(query);
   if (tracks.length === 0) {
