@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').load();
 import express from 'express';
 import bodyParser from 'body-parser';
 import spotifyApi from './api/spotify';
-import { hackathon, searchTrack, skip, nowPlaying, search, upNext } from './methods';
+import { hackathon, searchTrack, skip, nowPlaying, playlist, search, upNext } from './methods';
 
 const app = express();
 app.use(bodyParser.json());
@@ -85,6 +85,9 @@ app.post('/store', (req, res) => {
     }
     if (text.indexOf('up next') === 0 || text.indexOf('next up') === 0 ) {
       return upNext(res)(accessToken);
+    }
+    if (text.indexOf('playlist') === 0) {
+      return playlist(res);
     }
     if(text.indexOf(' - ') === -1) {
       return search(res)(text);
