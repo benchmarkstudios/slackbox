@@ -83,7 +83,7 @@ app.post('/store', (req, res) => {
     if (text.indexOf('skip') === 0 ) {
       return skip(res)(accessToken);
     }
-    if (text.indexOf('up next') === 0 ) {
+    if (text.indexOf('up next') === 0 || text.indexOf('next up') === 0 ) {
       return upNext(res)(accessToken);
     }
     if(text.indexOf(' - ') === -1) {
