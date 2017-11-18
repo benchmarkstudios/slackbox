@@ -11,7 +11,12 @@ spotifyApi.addTracksToPlaylist2 = (tracks) => {
   spotifyApi.addTracksToPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, tracksArr.map(track => `spotify:track:${track.id}`)) 
 }
 
-spotifyApi.getPlaylist2 = () => spotifyApi.getPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID) 
 
+const spotifyApi.getPlaylist2 = async (playlist = [], offset = 0, limit = 100) => {
+  const { body: { tracks: parsedPlaylist } } = await spotifyApi.getPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, { offset, limit });
+  playlist.push(parsedPlaylist.items);
+  if (parsedPlaylist.next) return spotifyApi.getPlaylist2(playlist, offset + limit, limit);
+  return playlist;
+}
 
 export default spotifyApi;
