@@ -11,26 +11,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-let accessToken;
-const refresh = t => {
-  console.log('timeout', t)
-  setTimeout(async () => {
-    try {
-      const token = await spotifyApi.refreshAccessToken()
-      console.log('refresh token', tokens)
-      accessToken = token.body['access_token']
-      spotifyApi.setAccessToken(accessToken);
-      if (token.body['refresh_token']) {
-        spotifyApi.setRefreshToken(token.body['refresh_token']);
-      }
-      refresh((token.body.expires_in - 60) * 1000)
-    } catch (e) {
-      console.log(e.message)
-      console.log('Could not refresh access token. You probably need to re-authorise yourself from your app\'s homepage.')
-    }
-  }, t)
-}
-
 app.get('/', async (req, res) => {
   if (spotifyApi.getAccessToken()) {
     return res.send('You are logged in.');
@@ -63,8 +43,14 @@ app.use('/store', (req, res, next) => {
   next();
 });
 
-app.post('/store', (req, res) => {
-  spotifyApi.refreshAccessToken()
+app.post('/store', async (req, res) => {
+  await spotifyApi.refreshAccessToken()
+    .then(data => {
+      spotifyApi.setAccessToken(data.body['access_token']);
+      if (data.body['refresh_token']) {
+        spotifyApi.setRefreshToken(data.body['refresh_token']);
+      }
+    })
   try {
     const accessToken = spotifyApi.getAccessToken();
     const { text } = req.body;
