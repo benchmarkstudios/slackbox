@@ -4,7 +4,6 @@ import request from 'request-promise';
 const upNext = res => async token => {
   try {
     const parsedPlaylist = await spotifyApi.getPlaylist2();
-    console.log(parsedPlaylist.length);
 
     const playing = await request.get({
       headers: { Authorization: `Bearer ${token}` },
