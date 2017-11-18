@@ -12,8 +12,8 @@ spotifyApi.addTracksToPlaylist2 = (tracks) => {
 };
 
 spotifyApi.getPlaylist2 = async (playlist = [], offset = 0, limit = 100) => {
-  const { body: parsedPlaylist } = await spotifyApi.getPlaylistTracks(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, { offset, limit });
-  console.log(parsedPlaylist);
+  const arsedPlaylist = await spotifyApi.getPlaylistTracks(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, { offset, limit });
+  console.log('parsedPlaylist', parsedPlaylist);
   const updatedPlaylist = [ ...playlist, ...parsedPlaylist.items ];
   if (parsedPlaylist.next) return await spotifyApi.getPlaylist2(updatedPlaylist, offset + limit, limit);
   return updatedPlaylist;
