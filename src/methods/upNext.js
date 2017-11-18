@@ -3,7 +3,7 @@ import request from 'request-promise';
 
 const upNext = res => async token => {
   try {
-    const { body: { tracks: parsedPlaylist } } = await spotifyApi.getPlaylist2();
+    const parsedPlaylist = await spotifyApi.getPlaylist2();
     
     const playing = await request.get({
       headers: { Authorization: `Bearer ${token}` },
@@ -11,8 +11,8 @@ const upNext = res => async token => {
     })
 
     const parsedPlaying = JSON.parse(playing);
-    const playingIndex = parsedPlaylist.items.findIndex(pitem => pitem.track.id === parsedPlaying.item.id);
-    const upNext = parsedPlaylist.items.slice(playingIndex);
+    const playingIndex = parsedPlaylist.findIndex(pitem => pitem.track.id === parsedPlaying.item.id);
+    const upNext = parsedPlaylist.slice(playingIndex);
     const messages = upNext.reduce((acc, val, ind) => {
       const artists = val.track.artists.reduce((acc, val, ind) => `${acc}${ind !== 0 ? ',' : ''} ${val.name}`, '')
       return `${ind === 0 ? '*' : ''}${acc}${artists} - ${val.track.name}${ind === 0 ? '*' : ''}\n`;
