@@ -44,15 +44,15 @@ app.use('/store', (req, res, next) => {
 });
 
 app.post('/store', async (req, res) => {
-  await spotifyApi.refreshAccessToken()
+  const accessToken = await spotifyApi.refreshAccessToken()
     .then(data => {
       spotifyApi.setAccessToken(data.body['access_token']);
       if (data.body['refresh_token']) {
         spotifyApi.setRefreshToken(data.body['refresh_token']);
       }
-    })
+      return data.body['access_token'];
+    });
   try {
-    const accessToken = spotifyApi.getAccessToken();
     const { text } = req.body;
     if (text.trim().length === 0) {
       return res.send('Enter the name of a song and the name of the artist, separated by a "-"\nExample: Blue (Da Ba Dee) - Eiffel 65');
