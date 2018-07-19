@@ -10,14 +10,15 @@ app.use(bodyParser.urlencoded({
 }));
 
 const docs = `
-Enter the name of a song and the name of the artist, separated by a "-"\nExample: Blue (Da Ba Dee) - Eiffel 65
+Enter the name of a song and the name of the artist separated by a -
+\nExample: Craig David - 7 days
 
 Other Commands:
-clear playlist: will empty the paylist
-now playing: show currently playing
-skip: skip the current track
-up next / next up: shows the current and queued tracks
-playlist: provides a link to the playlist in your browser
+*clear playlist*: will empty the paylist
+*now playing*: show currently playing
+*skip*: skip the current track
+*up next* / *next up*: shows the current and queued tracks
+*playlist*: provides a link to the playlist in your browser
 `;
 
 app.get('/', async (req, res) => {
@@ -34,16 +35,14 @@ app.get('/authorise', async (req, res) => {
   res.redirect(authoriseURL);
 });
 
-app.get('/callback', async (req, res) => {
-  try {
-    const data = await spotifyApi.authorizationCodeGrant(req.query.code);
-    spotifyApi.setAccessToken(data.body['access_token']);
-    spotifyApi.setRefreshToken(data.body['refresh_token']);
-    return res.redirect('/');
-  } catch (err) {
-    return res.send(err);
-  }
-});
+app.get('/callback', async (req, res) =>
+  spotifyApi.authorizationCodeGrant(req.query.code)
+    .then(data => {
+      spotifyApi.setAccessToken(data.body['access_token']);
+      spotifyApi.setRefreshToken(data.body['refresh_token']);
+      return res.redirect('/');
+    })
+    .catch(res.send));
 
 app.use('/store', (req, res, next) => {
   if (process.env.NODE_ENV !== 'development' && req.body.token !== process.env.SLACK_TOKEN) {
@@ -63,26 +62,24 @@ const commandToFn = {
 };
 
 app.post('/store', async (req, res) => {
-
-  const accessToken = await spotifyApi.refreshAccessToken()
-    .then(data => {
-      spotifyApi.setAccessToken(data.body['access_token']);
-      if (data.body['refresh_token']) {
-        spotifyApi.setRefreshToken(data.body['refresh_token']);
-      }
-      return data.body['access_token'];
-    });
   try {
+    const accessToken = await spotifyApi.refreshAccessToken()
+      .then(data => {
+        spotifyApi.setAccessToken(data.body['access_token']);
+        if (data.body['refresh_token']) {
+          spotifyApi.setRefreshToken(data.body['refresh_token']);
+        }
+        return data.body['access_token'];
+      });
+
     const { text } = req.body;
 
     if (text.trim().length === 0) {
       return res.send(docs);
     }
 
-    const [ , command ] = Object.entries(commandToFn).find(([ c, fn ]) => c === text);
-
-    if (command)
-      return command(res, accessToken)(text);
+    if (commandToFn[text])
+      return commandToFn[text](res, accessToken)(text);
 
     if (text.indexOf(' - ') === -1) {
       return search(res)(text);
