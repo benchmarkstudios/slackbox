@@ -1,6 +1,6 @@
 import request from 'request-promise';
 
-const skip = res => async token => {
+const skip = (res, token) => async () => {
   try {
     await request.post({
       headers: { Authorization: `Bearer ${token}` },

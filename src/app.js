@@ -1,15 +1,24 @@
-if (process.env.NODE_ENV !== 'production') require('dotenv').load();
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import spotifyApi from './api/spotify';
-import { hackathon, searchTrack, skip, nowPlaying, playlist, search, upNext } from './methods';
+import { clearPlaylist, nowPlaying, search, searchTrack, skip, playlist, upNext } from './methods';
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+const docs = `
+Enter the name of a song and the name of the artist, separated by a "-"\nExample: Blue (Da Ba Dee) - Eiffel 65
+
+Other Commands:
+clear playlist: will empty the paylist
+now playing: show currently playing
+skip: skip the current track
+up next / next up: shows the current and queued tracks
+playlist: provides a link to the playlist in your browser
+`;
 
 app.get('/', async (req, res) => {
   if (spotifyApi.getAccessToken()) {
@@ -37,13 +46,24 @@ app.get('/callback', async (req, res) => {
 });
 
 app.use('/store', (req, res, next) => {
-  if (req.body.token !== process.env.SLACK_TOKEN) {
-    return slack(res.status(500), 'Cross site request forgerizzle!');
+  if (process.env.NODE_ENV !== 'development' && req.body.token !== process.env.SLACK_TOKEN) {
+    return res.status(500);
   }
   next();
 });
 
+
+const commandToFn = {
+  ['clear playlist']: clearPlaylist,
+  ['now playing']: nowPlaying,
+  ['skip']: skip,
+  ['up next']: upNext,
+  ['next up']: upNext,
+  ['playlist']: playlist
+};
+
 app.post('/store', async (req, res) => {
+
   const accessToken = await spotifyApi.refreshAccessToken()
     .then(data => {
       spotifyApi.setAccessToken(data.body['access_token']);
@@ -54,30 +74,20 @@ app.post('/store', async (req, res) => {
     });
   try {
     const { text } = req.body;
+
     if (text.trim().length === 0) {
-      return res.send('Enter the name of a song and the name of the artist, separated by a "-"\nExample: Blue (Da Ba Dee) - Eiffel 65');
+      return res.send(docs);
     }
-    if (text.indexOf('hackathon') === 0 || text.indexOf('HACKATHON') === 0) {
-      const t = text.split('hackathon ')[1];
-      const pieces = t.split(' - ');
-      const query = `artist:${pieces[0].trim()} track:${pieces[1].trim()}`;
-      return hackathon(res)(query);
-    }
-    if (text.indexOf('now playing') === 0) {
-      return nowPlaying(res)(accessToken);
-    }
-    if (text.indexOf('skip') === 0 ) {
-      return skip(res)(accessToken);
-    }
-    if (text.indexOf('up next') === 0 || text.indexOf('next up') === 0 ) {
-      return upNext(res)(accessToken);
-    }
-    if (text.indexOf('playlist') === 0) {
-      return playlist(res);
-    }
-    if(text.indexOf(' - ') === -1) {
+
+    const [ , command ] = Object.entries(commandToFn).find(([ c, fn ]) => c === text);
+
+    if (command)
+      return command(res, accessToken)(text);
+
+    if (text.indexOf(' - ') === -1) {
       return search(res)(text);
     }
+
     const pieces = text.split(' - ');
     const query = `artist:${pieces[0].trim()} track:${pieces[1].trim()}`;
     searchTrack(res)(query);

@@ -1,6 +1,6 @@
 import request from 'request-promise';
 
-const nowPlaying = res => async token => {
+const nowPlaying = (res, token) => async () => {
   try {
     const playing = await request.get({
       headers: { Authorization: `Bearer ${token}` },
@@ -17,7 +17,7 @@ const nowPlaying = res => async token => {
       ]
     });
   } catch (e) {
-    res.end(e)
+    res.end(e);
   }
 };
 
