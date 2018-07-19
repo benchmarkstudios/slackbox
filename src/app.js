@@ -10,14 +10,15 @@ app.use(bodyParser.urlencoded({
 }));
 
 const docs = `
-Enter the name of a song and the name of the artist, separated by a "-"\nExample: Blue (Da Ba Dee) - Eiffel 65
+Enter the name of a song and the name of the artist separated by a -
+\nExample: Craig David - 7 days
 
 Other Commands:
-clear playlist: will empty the paylist
-now playing: show currently playing
-skip: skip the current track
-up next / next up: shows the current and queued tracks
-playlist: provides a link to the playlist in your browser
+*clear playlist*: will empty the paylist
+*now playing*: show currently playing
+*skip*: skip the current track
+*up next* / *next up*: shows the current and queued tracks
+*playlist*: provides a link to the playlist in your browser
 `;
 
 app.get('/', async (req, res) => {
