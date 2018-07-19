@@ -80,10 +80,8 @@ app.post('/store', async (req, res) => {
       return res.send(docs);
     }
 
-    const [ , command ] = Object.entries(commandToFn).find(([ c, fn ]) => c === text);
-
-    if (command)
-      return command(res, accessToken)(text);
+    if (commandToFn[text])
+      return commandToFn[text](res, accessToken)(text);
 
     if (text.indexOf(' - ') === -1) {
       return search(res)(text);
