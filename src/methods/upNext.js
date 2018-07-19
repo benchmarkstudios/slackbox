@@ -1,7 +1,7 @@
 import spotifyApi from '../api/spotify';
 import request from 'request-promise';
 
-const upNext = res => async token => {
+const upNext = (res, token) => async () => {
   try {
     const parsedPlaylist = await spotifyApi.getPlaylist2();
 

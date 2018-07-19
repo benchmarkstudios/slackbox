@@ -1,4 +1,6 @@
 require('babel-register');
+if (process.env.NODE_ENV !== 'production') require('dotenv').load();
+
 const glob = require('glob');
 const { resolve } = require('path');
 

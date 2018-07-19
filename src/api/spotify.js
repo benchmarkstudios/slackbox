@@ -18,4 +18,11 @@ spotifyApi.getPlaylist2 = async (playlist = [], offset = 0, limit = 100) => {
   return updatedPlaylist;
 };
 
+spotifyApi.clearPlaylist = async (offset = 0, limit = 100) => {
+  const { body: parsedPlaylist } = await spotifyApi.getPlaylistTracks(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, { offset, limit });
+  await spotifyApi.removeTracksFromPlaylist(process.env.SPOTIFY_USERNAME, process.env.SPOTIFY_PLAYLIST_ID, parsedPlaylist.items.map(({ track: { uri } }) => ({ uri })));
+  if (parsedPlaylist.next) return await spotifyApi.clearPlaylist(offset + limit, limit);
+  return true;
+};
+
 export default spotifyApi;
