@@ -35,16 +35,14 @@ app.get('/authorise', async (req, res) => {
   res.redirect(authoriseURL);
 });
 
-app.get('/callback', async (req, res) => {
-  try {
-    const data = await spotifyApi.authorizationCodeGrant(req.query.code);
-    spotifyApi.setAccessToken(data.body['access_token']);
-    spotifyApi.setRefreshToken(data.body['refresh_token']);
-    return res.redirect('/');
-  } catch (err) {
-    return res.send(err);
-  }
-});
+app.get('/callback', async (req, res) =>
+  spotifyApi.authorizationCodeGrant(req.query.code)
+    .then(data => {
+      spotifyApi.setAccessToken(data.body['access_token']);
+      spotifyApi.setRefreshToken(data.body['refresh_token']);
+      return res.redirect('/');
+    })
+    .catch(res.send));
 
 app.use('/store', (req, res, next) => {
   if (process.env.NODE_ENV !== 'development' && req.body.token !== process.env.SLACK_TOKEN) {
@@ -64,16 +62,16 @@ const commandToFn = {
 };
 
 app.post('/store', async (req, res) => {
-
-  const accessToken = await spotifyApi.refreshAccessToken()
-    .then(data => {
-      spotifyApi.setAccessToken(data.body['access_token']);
-      if (data.body['refresh_token']) {
-        spotifyApi.setRefreshToken(data.body['refresh_token']);
-      }
-      return data.body['access_token'];
-    });
   try {
+    const accessToken = await spotifyApi.refreshAccessToken()
+      .then(data => {
+        spotifyApi.setAccessToken(data.body['access_token']);
+        if (data.body['refresh_token']) {
+          spotifyApi.setRefreshToken(data.body['refresh_token']);
+        }
+        return data.body['access_token'];
+      });
+
     const { text } = req.body;
 
     if (text.trim().length === 0) {
