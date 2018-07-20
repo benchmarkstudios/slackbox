@@ -4,8 +4,7 @@
   "description": "Spotify playlist collaboration through Slack.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node index.js src/app.js"
   },
   "repository": {
     "type": "git",
@@ -13,15 +12,28 @@
   },
   "author": "Mike Francis <mikeffrancis@gmail.com>",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.6.0",
+    "babel-plugin-transform-object-rest-spread": "^6.19.0",
+    "babel-register": "^6.24.1"
+  },
   "dependencies": {
-    "spotify-web-api-node": "~2.2.0",
+    "babel-cli": "^6.24.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.6.0",
+    "babel-plugin-transform-object-rest-spread": "^6.19.0",
+    "babel-register": "^6.24.1",
+    "body-parser": "~1.12.2",
     "dotenv": "~1.0.0",
     "express": "~4.12.3",
+    "glob": "^7.1.2",
     "request": "~2.53.0",
-    "body-parser": "~1.12.2"
+    "request-promise": "^4.2.1",
+    "spotify-web-api-node": "^2.4.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "8.1.x"
   }
 }
