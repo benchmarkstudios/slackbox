@@ -25,4 +25,5 @@ spotifyApi.clearPlaylist = async (offset = 0, limit = 100) => {
   return true;
 };
 
+
 export default spotifyApi;
